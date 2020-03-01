@@ -1,0 +1,248 @@
+<?
+include 'conecta.php';
+if(isset($_POST['idLocal'])){
+	?>
+	<form action="datos.php" method="post" id="formularioLocales">
+	<input type="text" name="oculto" id="oculto" value="404"/>
+	<input type="text" name="ocultoId" id="ocultoId" value="<?=$_POST['idLocal']?>" />
+	<?
+	if($_POST['idLocal']==0){
+	?>	
+		<table border="2">
+	<tr>
+		<td><select>
+		<option value="0">Locales</option>
+		<option value="1">Piso</option>
+		<option value="2">Apartamento</option>
+		<option value="3">Chalet</option>
+		</select></td>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<select>
+			<option value="0">Direccion</option>
+			</select>
+		</td>
+		<td>
+		<select>
+			<option value="0">Certificacion Energetica</option>
+			<option value="1">A</option>
+			<option value="2">B</option>
+			<option value="3">C</option>
+			<option value="4">D</option>
+			<option value="5">E</option>
+			<option value="6">F</option>
+			<option value="7">G</option>
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>Dreccion</td>
+		<td><input type="text" id="dire" name="dire"></input></td>
+	</tr>
+	<tr>
+		<td>Precio</td>
+		<td><input type="number"  min="0" id="pre" name="pre" ></input></td>
+	</tr>
+	<tr>
+		<td>Fianza</td>
+		<td><input type="number" id="fia" name="fia" min="0"></input></td>
+	</tr>
+	<tr>
+		<td><select>
+		<option value="0">Nº habitaciones</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td><select>
+		<option value="0">Nº Baños</option>
+		<option value="1">1</option>
+		<option value="2">2</option>
+		<option value="3">3</option>
+		<option value="4">4</option>
+		<option value="5">5</option>
+		</select></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" id="cale" name="cale"> Celefaccion</input></td>
+		<td><input type="checkbox" id="gare" name="gare"> Garaje</input></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" id="as" name="as"> Ascensor</input></td>
+		<td><input type="checkbox" id="mas" name="mas"> Mascotas</input></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" id="tras" name="tras"> Trastero</input></td>
+		<td><input type="checkbox" id="dis" name="dis"> Disponible</input></td>
+	</tr>
+	<tr>
+		<td><input type="checkbox" id="amu" name="amu"> Amueblado</input></td>
+	</tr>
+	<tr>
+		<td>Observaciones</td>
+		<td><textarea></textarea></td>
+	</tr>
+	
+	<tr>
+		<td colspan="2">
+			<table>
+				<tr >
+					
+					<td><button>Enviar</button></td>
+					<td><button>Modificar</button></td>
+					<td><button>Borrar</button></td>
+					
+					
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<table>
+				<tr>
+					<td>
+						<button type="button" onclick="cambiaValor('oculto',0,'formularioLocales')">Enviar</button>
+					</td>
+					<td>
+						<button type="button" onclick="cambiaValor('oculto',1,'formularioLocales')">Modificar</button>
+					</td>
+					<td>
+						<button type="button" onclick="cambiaValor('oculto',2,'formularioLocales')">Eliminar</button>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+		
+		
+	<?
+	}else{
+		$id = $_POST['idLocal'];
+		$sql="SELECT * FROM alquileres WHERE ID =".$id;
+		$resultado=$mysqli->query($sql);
+		$datos=$resultado->fetch_all(MYSQLI_ASSOC);
+		$id=$datos[0]['ID'];
+		$apa=$datos[0]['APARTAMENTO'];
+		$dire=$datos[0]['DIRECCION'];
+		$pre=$datos[0]['PRECIO'];
+		$fian=$datos[0]['FIANZA'];
+		$masc=$datos[0]['MASCOTA'];
+		$hab=$datos[0]['HABITACIONES'];
+		$bath=$datos[0]['BANHOS'];
+		$asce=$datos[0]['ASCENSOR'];
+		$dis=$datos[0]['DISPONIBLE'];
+		$amue=$datos[0]['AMUEBLADO'];
+		$cert=$datos[0]['CERTIFICADOENERGETICO'];
+		$cale=$datos[0]['CALEFACCION'];
+		$gara=$datos[0]['GARAJE'];
+		$tras=$datos[0]['TRASTERO'];
+		$obv=$datos[0]['OBSERVACIONES'];
+		?>
+		<table border="2">
+			<tr>
+				<td><select>
+				<option value="0">Locales</option>
+				<option value="1">Piso</option>
+				<option value="2">Apartamento</option>
+				<option value="3">Chalet</option>
+				</select></td>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<select>
+					<option value="0">Direccion</option>
+					</select>
+				</td>
+				<td>
+				<select>
+					<option value="0">Certificacion Energetica</option>
+					<option value="1">A</option>
+					<option value="2">B</option>
+					<option value="3">C</option>
+					<option value="4">D</option>
+					<option value="5">E</option>
+					<option value="6">F</option>
+					<option value="7">G</option>
+					</select>
+				</td>
+			</tr>
+			<tr>
+				<td>Dreccion</td>
+				<td><input type="text" id="dire" name="dire"></input></td>
+			</tr>
+			<tr>
+				<td>Precio</td>
+				<td><input type="number"  min="0" id="pre" name="pre" ></input></td>
+			</tr>
+			<tr>
+				<td>Fianza</td>
+				<td><input type="number" id="fia" name="fia" min="0"></input></td>
+			</tr>
+			<tr>
+				<td><select>
+				<option value="0">Nº habitaciones</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><select>
+				<option value="0">Nº Baños</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" id="cale" name="cale"> Celefaccion</input></td>
+				<td><input type="checkbox" id="gare" name="gare"> Garaje</input></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" id="as" name="as"> Ascensor</input></td>
+				<td><input type="checkbox" id="mas" name="mas"> Mascotas</input></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" id="tras" name="tras"> Trastero</input></td>
+				<td><input type="checkbox" id="dis" name="dis"> Disponible</input></td>
+			</tr>
+			<tr>
+				<td><input type="checkbox" id="amu" name="amu"> Amueblado</input></td>
+			</tr>
+			<tr>
+				<td>Observaciones</td>
+				<td><textarea></textarea></td>
+			</tr>
+				<td colspan="2">
+					<table>
+						<tr>
+							<td>
+								<button type="button" onclick="cambiaValor('oculto',0,'formularioLocales')">Enviar</button>
+							</td>
+							<td>
+								<button type="button" onclick="cambiaValor('oculto',1,'formularioLocales')">Modificar</button>
+							</td>
+							<td>
+								<button type="button" onclick="cambiaValor('oculto',2,'formularioLocales')">Eliminar</button>
+							</td>
+						</tr>
+					</table>
+				</td>
+	</form>
+</table>
+<?
+}
+?>
